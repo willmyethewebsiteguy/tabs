@@ -7,7 +7,7 @@
 (function () {
   const ps = {
     cssId: 'wm-tabs',
-    cssFile: 'https://cdn.jsdelivr.net/gh/willmyethewebsiteguy/tabsForBlocks@4.3.002/styles.min.css'
+    cssFile: 'https://cdn.jsdelivr.net/gh/willmyethewebsiteguy/tabs@4.3.003/tabs-styles.min.css'
   };
   const defaults = {
     layout: "horiztonal", // or 'vertical'
@@ -1328,8 +1328,10 @@
      * Build a Tab Button Element
      */
     Constructor.prototype.buildButton = function (button, index) {
+      let id = `tab${index + 1}`;
+      if (button.id) id = button.id;
       //Build Each Button and add to string
-      return `<button data-id="tab${index}" class="wm-tab-button">${button.innerText}</button>`;
+      return `<button data-id="${id}" class="wm-tab-button">${button.innerText}</button>`;
     };
 
     /**
