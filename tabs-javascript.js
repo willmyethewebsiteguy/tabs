@@ -7,7 +7,7 @@
 (function () {
   const ps = {
     cssId: 'wm-tabs',
-    cssFile: 'https://cdn.jsdelivr.net/gh/willmyethewebsiteguy/tabs@4.3.005/tabs-styles.min.css'
+    cssFile: 'https://cdn.jsdelivr.net/gh/willmyethewebsiteguy/tabs@4.3.006/tabs-styles.min.css'
   };
   const defaults = {
     layout: "horiztonal", // or 'vertical'
@@ -64,6 +64,41 @@
           fn.apply(context, args);
         });
       }
+    },
+    scrollToPosition: function() {
+        /**
+    * Scroll To Position
+    * This should only happen once
+    **/
+      function handleEvent() {
+        let url = new URL(window.location.href),
+              hash = url.hash,
+              top, el;
+        
+        //Scroll To Tab
+
+        function scroll(pos) {
+          window.scrollTo({
+            top: pos,
+            behavior: 'smooth'
+          });
+        }
+        function calculateTop() {
+          let elTop = el.getBoundingClientRect().top,
+              windowScroll = document.documentElement.scrollTop;
+          top = elTop + windowScroll;
+        }
+
+        if (hash && document.querySelector(hash)) {
+          el = document.querySelector(hash);
+          //if (el.closest('.wm-tabs-block')){
+            calculateTop();
+            scroll(top);
+          //}
+        }
+      }
+      
+      window.addEventListener('load', handleEvent)
     }
   }
 
@@ -528,7 +563,8 @@
     Constructor.prototype.initTab = function () {
       const url = new URL(window.location.href),
             searchParams = url.searchParams.getAll("wmTabs");
-
+      
+      //Open Correct Tab
       openTab(1, this);
       if (searchParams) {
         for (param of searchParams) {
@@ -541,7 +577,7 @@
           }
         }
       }
-      
+
       this.elements.container.classList.remove('loading');
     };
 
@@ -578,7 +614,7 @@
         loaded();
       }
     };
-
+    
     return Constructor;
   }());
 
@@ -1494,6 +1530,10 @@
       if (!tab.matches(".loaded")) {
         new WMTabs(tab);
       }
+    }
+    
+    if (tabsContainers.length || initBlocks.length || initSections.length) {
+      utils.scrollToPosition();
     }
   }
 
