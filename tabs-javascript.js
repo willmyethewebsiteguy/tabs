@@ -7,7 +7,7 @@
 (function () {
   const ps = {
     cssId: 'wm-tabs',
-    cssFile: 'https://cdn.jsdelivr.net/gh/willmyethewebsiteguy/tabs@4.3.005/tabs-styles.min.css'
+    cssFile: 'https://cdn.jsdelivr.net/gh/willmyethewebsiteguy/tabs@4.3.007/tabs-styles.min.css'
   };
   const defaults = {
     layout: "horiztonal", // or 'vertical'
