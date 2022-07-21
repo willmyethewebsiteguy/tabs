@@ -1,5 +1,5 @@
 /* ==========
-Version 4.2.0
+Version 4.2
 Tabs Block Plugin For Squarespace
 Copyright Will-Myers
 ========== */
@@ -437,9 +437,18 @@ body.sqs-edit-mode-active .sqs-block:hover .wm-tabs-end::after{
   opacity: 1;
 }
 
+/*Squarespace 7.0 Background Images*/
+.wm-tabs-block .Index-page-image img{
+  top:0px !important;
+  left: 0px !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit:cover;
+}
+
 
 /*Image In Source Upload*/
-.sqs-block-image img.loaded {
+.wm-tabs-block .sqs-block-image img.loaded {
   --position: 50% 50%;
   height: 100%;
   width: 100%;
