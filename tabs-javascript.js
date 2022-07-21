@@ -7,7 +7,7 @@
 (function () {
   const ps = {
     cssId: 'wm-tabs',
-    cssFile: 'https://cdn.jsdelivr.net/gh/willmyethewebsiteguy/tabs@4.3.006/tabs-styles.min.css'
+    cssFile: 'https://assets.codepen.io/3198845/WMTabsTESTINGONLY.css'
   };
   const defaults = {
     layout: "horiztonal", // or 'vertical'
@@ -1207,13 +1207,13 @@
               htmlString.append(document.querySelector(item))
             } else {
               for (let i = 1; i <= item; i++) {
-                let nextSection = instance.elements.container.closest('.page-section').nextElementSibling;
+                let nextSection = instance.elements.container.closest('.page-section, .Index-page').nextElementSibling;
                 if (nextSection) htmlString.append(nextSection);
               }
             };
           })
         } else {
-          let nextSection = instance.elements.container.closest('.page-section').nextElementSibling;
+          let nextSection = instance.elements.container.closest('.page-section, .Index-page').nextElementSibling;
           if (nextSection) htmlString.append(nextSection);
         }
         instance.elements.article.append(htmlString);
