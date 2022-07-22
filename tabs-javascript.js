@@ -7,7 +7,7 @@
 (function () {
   const ps = {
     cssId: 'wm-tabs',
-    cssFile: 'https://cdn.jsdelivr.net/gh/willmyethewebsiteguy/tabs@4.3.007/tabs-styles.min.css'
+    cssFile: 'https://cdn.jsdelivr.net/gh/willmyethewebsiteguy/tabs@4.3.008/tabs-styles.min.css'
   };
   const defaults = {
     layout: "horiztonal", // or 'vertical'
@@ -37,12 +37,21 @@
       return elem.dispatchEvent(event);
     },
     inIframe: function () {
-      console.log('testing')
       try {
         return window.self !== window.top;
       } catch (e) {
         return true;
       }
+    },
+    preventPlugin: function(){
+      let styles = window.getComputedStyle(document.body),
+          prevent = (styles.getPropertyValue('--wm-tabs-edit-mode') === 'true');
+
+      console.log('preventEl: ', prevent)
+      console.log('utils.inIframe: ', utils.inIframe());
+      console.log('both: ', (prevent && utils.inIframe()));
+      
+      return (prevent && utils.inIframe());
     },
     debounce: function (fn) {
       // Setup a timer
@@ -1207,13 +1216,13 @@
               htmlString.append(document.querySelector(item))
             } else {
               for (let i = 1; i <= item; i++) {
-                let nextSection = instance.elements.container.closest('.page-section, .Index-page').nextElementSibling;
+                let nextSection = instance.elements.container.closest('.page-section, .Index-page, .main-content > .index-section').nextElementSibling;
                 if (nextSection) htmlString.append(nextSection);
               }
             };
           })
         } else {
-          let nextSection = instance.elements.container.closest('.page-section, .Index-page').nextElementSibling;
+          let nextSection = instance.elements.container.closest('.page-section, .Index-page, .main-content > .index-section').nextElementSibling;
           if (nextSection) htmlString.append(nextSection);
         }
         instance.elements.article.append(htmlString);
@@ -1426,6 +1435,9 @@
   }());
   
   function initTabs() {
+    if (utils.preventPlugin()) return;
+
+    console.log('run')
     //Build HTML from Collection
     async function getCollectionJSON(url) {
       url += `?format=json-pretty`;
@@ -1531,7 +1543,7 @@
         new WMTabs(tab);
       }
     }
-    
+
     if (tabsContainers.length || initBlocks.length || initSections.length) {
       utils.scrollToPosition();
     }
