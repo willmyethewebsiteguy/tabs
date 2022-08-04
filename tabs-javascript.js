@@ -3,11 +3,10 @@
  * Tabs For Squarespace Sections
  * Copyright Will Myers
 **/
-
 (function () {
   const ps = {
     cssId: 'wm-tabs',
-    cssFile: 'https://cdn.jsdelivr.net/gh/willmyethewebsiteguy/tabs@4.3.008/tabs-styles.min.css'
+    cssFile: 'https://cdn.jsdelivr.net/gh/willmyethewebsiteguy/tabs@4.3.009/tabs-styles.min.css'
   };
   const defaults = {
     layout: "horiztonal", // or 'vertical'
@@ -46,10 +45,6 @@
     preventPlugin: function(){
       let styles = window.getComputedStyle(document.body),
           prevent = (styles.getPropertyValue('--wm-tabs-edit-mode') === 'true');
-
-      console.log('preventEl: ', prevent)
-      console.log('utils.inIframe: ', utils.inIframe());
-      console.log('both: ', (prevent && utils.inIframe()));
       
       return (prevent && utils.inIframe());
     },
@@ -1436,8 +1431,6 @@
   
   function initTabs() {
     if (utils.preventPlugin()) return;
-
-    console.log('run')
     //Build HTML from Collection
     async function getCollectionJSON(url) {
       url += `?format=json-pretty`;
@@ -1550,6 +1543,9 @@
   }
 
   initTabs();
+  if (Static.SQUARESPACE_CONTEXT.templateVersion == "7"){
+    window.addEventListener('mercury:load', initTabs)
+  }
   window.addEventListener('load', initTabs);
   window.wmTabsInit = function() { initTabs() };
 })();
