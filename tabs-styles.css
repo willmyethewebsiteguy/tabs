@@ -448,13 +448,14 @@ body.sqs-edit-mode-active .sqs-block:hover .wm-tabs-end::after{
 
 
 /*Image In Source Upload*/
-.wm-tabs-block .sqs-block-image img.loaded {
+.wm-tabs-block .sqs-block-image img.loaded,
+.wm-tabs-block .summary-v2-block img.loaded{
   --position: 50% 50%;
-  height: 100%;
-  width: 100%;
-  visibility: visible;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  height: 100% !important;
+  width: 100% !important;
+  visibility: visible !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
 }
