@@ -6,7 +6,7 @@
 (function () {
   const ps = {
     cssId: 'wm-tabs',
-    cssFile: 'https://cdn.jsdelivr.net/gh/willmyethewebsiteguy/tabs@4.3.010/tabs-styles.min.css'
+    cssFile: 'https://cdn.jsdelivr.net/gh/willmyethewebsiteguy/tabs@4.3.011/tabs-styles.min.css'
   };
   const defaults = {
     layout: "horiztonal", // or 'vertical'
@@ -220,7 +220,7 @@
         setScrollIndicatorsVisibility(instance)
       }
 
-      instance.elements.nav?.addEventListener("scroll", handleEvent);
+      instance.elements.nav.addEventListener("scroll", handleEvent);
     }
 
     /**
@@ -421,8 +421,8 @@
           navWidth = instance.elements.nav.offsetWidth,
           viewableNavRightEdge = navScrollLeftPos + navWidth;
 
-      navScrollLeftPos > 25 ? backSI?.classList.add('show') : backSI?.classList.remove('show');
-      viewableNavRightEdge + 25 < scrollWidth ? forwardSI?.classList.add('show') : forwardSI?.classList.remove('show');
+      navScrollLeftPos > 25 ? backSI.classList.add('show') : backSI.classList.remove('show');
+      viewableNavRightEdge + 25 < scrollWidth ? forwardSI.classList.add('show') : forwardSI.classList.remove('show');
 
       //  console.log('navScrollLeftPos', navScrollLeftPos)
       //  console.log('viewableNavRightEdge', viewableNavRightEdge)
@@ -1085,7 +1085,8 @@
       watchForEditMode(this);
 
       new WMTabs(this.elements.container);
-      window.Squarespace?.globalInit(Y);
+      window.Squarespace ? window.Squarespace.globalInit(Y) : null;
+      //window.Squarespace?.globalInit(Y);
     }
 
     /**
