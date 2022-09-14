@@ -3,17 +3,11 @@
  * Tabs For Squarespace Sections
  * Copyright Will Myers
 **/
-'https://cdn.jsdelivr.net/gh/willmyethewebsiteguy/tabs@4.3.011/tabs-styles.min.css'
-/**
- * Version 4.3
- * Tabs For Squarespace Sections
- * Copyright Will Myers
-**/
 
 (function () {
   const ps = {
     cssId: 'wm-tabs',
-    cssFile: 'https://assets.codepen.io/3198845/WMTabsTESTINGONLY.css'
+    cssFile: 'https://cdn.jsdelivr.net/gh/willmyethewebsiteguy/tabs@4.3/tabs-styles.min.css'
   };
   const defaults = {
     layout: "horiztonal", // or 'vertical'
