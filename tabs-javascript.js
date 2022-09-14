@@ -3,10 +3,17 @@
  * Tabs For Squarespace Sections
  * Copyright Will Myers
 **/
+'https://cdn.jsdelivr.net/gh/willmyethewebsiteguy/tabs@4.3.011/tabs-styles.min.css'
+/**
+ * Version 4.3
+ * Tabs For Squarespace Sections
+ * Copyright Will Myers
+**/
+
 (function () {
   const ps = {
     cssId: 'wm-tabs',
-    cssFile: 'https://cdn.jsdelivr.net/gh/willmyethewebsiteguy/tabs@4.3.011/tabs-styles.min.css'
+    cssFile: 'https://assets.codepen.io/3198845/WMTabsTESTINGONLY.css'
   };
   const defaults = {
     layout: "horiztonal", // or 'vertical'
@@ -120,7 +127,7 @@
       if (tabTop < 0) {
         isBelow = true;
         window.scrollTo({
-          top: tab.getBoundingClientRect().top + document.documentElement.scrollTop - instance.elements.headerHeight,
+          top: tab.getBoundingClientRect().top + document.documentElement.scrollTop - instance.elements.headerBottom - 50,
           behavior: 'smooth'
         });
       }
@@ -137,7 +144,7 @@
           index = tabNum - 1;
 
       // Add Class to correct Button
-      for (btn of elements.navButtons) {
+      for (let btn of elements.navButtons) {
         btn.classList.remove("active");
       }
       try {
@@ -148,7 +155,7 @@
       }
 
       // Add Class to correct section
-      for (section of elements.sections) {
+      for (let section of elements.sections) {
         section.classList.remove("active");
       }
 
@@ -172,11 +179,10 @@
           let el = target.closest(".wm-tab-button"),
               index = Array.prototype.indexOf.call(el.parentElement.children, el) + 1;
           openTab(index, instance);
-          scrollToTopOfTab(instance);
         }
       }
 
-      for (button of elements.navButtons) {
+      for (let button of elements.navButtons) {
         button.addEventListener('click', handleEvent);
 
         /*For Hover Events*/
@@ -493,8 +499,8 @@
         },
         get headerBottom() {
           if (!this.header) return null;
-          let header = document.querySelector('#header') || document.querySelector('header'),
-              headerBottom = header.getBoundingClientRect().bottom;
+          let headerBottom = this.header.getBoundingClientRect().bottom;
+          if (headerBottom < 0) headerBottom = 0;
           return headerBottom
         },
         get navWrapper() {
@@ -792,8 +798,9 @@
           return headerHeight
         },
         get headerBottom() {
-          let header = document.querySelector('#header') || document.querySelector('header'),
-              headerBottom = header.getBoundingClientRect().bottom;
+          if (!this.header) return null;
+          let headerBottom = this.header.getBoundingClientRect().bottom;
+          if (headerBottom < 0) headerBottom = 0;
           return headerBottom
         },
         get navWrapper() {
@@ -1039,8 +1046,9 @@
           return headerHeight
         },
         get headerBottom() {
-          let header = document.querySelector('#header') || document.querySelector('header'),
-              headerBottom = header.getBoundingClientRect().bottom;
+          if (!this.header) return null;
+          let headerBottom = this.header.getBoundingClientRect().bottom;
+          if (headerBottom < 0) headerBottom = 0;
           return headerBottom
         },
         get navWrapper() {
@@ -1124,7 +1132,7 @@
     };
 
     Constructor.prototype.loadImages = function (instance) {
-      let images = instance.elements.container.querySelectorAll('.summary-v2-block img, .sqs-block-image img');
+      let images = instance.elements.container.querySelectorAll('.summary-v2-block img, .sqs-block-image img, .section-background img');
       images.forEach(img => {
 
         img.classList.add('loaded');
@@ -1317,8 +1325,9 @@
           return headerHeight
         },
         get headerBottom() {
-          let header = document.querySelector('#header') || document.querySelector('header'),
-              headerBottom = header.getBoundingClientRect().bottom;
+          if (!this.header) return null;
+          let headerBottom = this.header.getBoundingClientRect().bottom;
+          if (headerBottom < 0) headerBottom = 0;
           return headerBottom
         },
         get navWrapper() {
