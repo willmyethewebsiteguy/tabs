@@ -457,5 +457,7 @@ body.sqs-edit-mode-active .sqs-block:hover .wm-tabs-end::after{
   top: 0 !important;
   left: 0 !important;
   right: 0 !important;
+  object-position:var(--position);
+  object-fit:cover;
   bottom: 0 !important;
 }
