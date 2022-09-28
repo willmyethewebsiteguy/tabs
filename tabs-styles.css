@@ -235,6 +235,9 @@ body:not(.sqs-edit-mode-active) .hide-target {
   right: 0;
   border-left: 1px solid var(--nav-scroll-indicator-border);
 }
+.wm-tabs-block .scrollable-indicator svg{
+  width:100%;
+}
 .wm-tabs-block .scrollable-indicator svg, 
 .wm-tabs-block .scrollable-indicator path{
   stroke: var(--nav-scroll-indicator);
