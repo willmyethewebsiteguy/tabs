@@ -739,7 +739,6 @@
         if (data.event == "hover") data.event = "mouseover";
         localSettings.event = data.event;
       }
-      console.log('settings', localSettings)
       return localSettings;
     }
 
@@ -1411,7 +1410,7 @@
     };
 
     Constructor.prototype.loadImages = function (instance) {
-      let images = instance.elements.container.querySelectorAll('.summary-v2-block img, .sqs-block-image img');
+      let images = instance.elements.container.querySelectorAll('.summary-v2-block img, .sqs-block-image img, .gallery-strips-item img');
       images.forEach(img => {
 
         img.classList.add('loaded');
@@ -1426,6 +1425,11 @@
         }
         if (!src) {
           img.src = imgData.src
+        }
+        
+        //If Image is Gallery set to type = Grid:Strips
+        if (img.closest('.gallery-strips-item')) {
+          imgData.imageResolution = '1500w';
         }
       });
     }
