@@ -1227,6 +1227,18 @@
 
       instance.loadImages(instance);
     }
+    
+    function addSectionIndex() {
+      if (window.top == window.self) return;
+      let sectionsContainer = document.querySelector('#page #sections'),
+          sections = sectionsContainer.querySelectorAll(':scope > .page-section');
+      
+      for (let section of sections) {
+        let index = Array.prototype.indexOf.call(sectionsContainer.children, section);
+        section.dataset.wmTabIndexId = index;
+      }
+
+    }
 
     /**
      * Inject buttons into the Tabs Component
@@ -1351,6 +1363,9 @@
           return this.container.querySelector("section.active");
         },
       };
+      
+      //Add Section Index ID's if In Backend so we can place back correctly
+      addSectionIndex()
 
       // Inject template into the DOM
       injectTemplate(this);
@@ -1403,7 +1418,13 @@
       //Deconstruct the Tabs Element
       function removeElements() {
         if (!instance.elements) { return }
-        instance.elements.article.remove();
+        let sectionsContainer = document.querySelector('#page #sections'),
+            sections = document.querySelectorAll('[data-wm-tab-index-id]');
+        
+        for (let section of sections) {
+          sectionsContainer.append(section);
+        }
+        //instance.elements.article.remove();
       }
 
       removeElements();
