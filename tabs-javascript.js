@@ -504,7 +504,7 @@
           return this.container.querySelector("nav");
         },
         get navButtons() {
-          return this.container.querySelectorAll("nav > button");
+          return this.container.querySelectorAll(":scope > .nav-container button");
         },
         get indicator() {
           return this.container.querySelector("nav > .indicator");
@@ -522,7 +522,7 @@
           return this.container.querySelector("article");
         },
         get sections() {
-          return this.container.querySelectorAll("article > section");
+          return this.container.querySelectorAll(":scope > article > section");
         },
         get activeTab() {
           return this.container.querySelector("nav > button.active");
