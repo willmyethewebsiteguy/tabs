@@ -1431,7 +1431,7 @@
     };
 
     Constructor.prototype.loadImages = function (instance) {
-      let images = instance.elements.container.querySelectorAll('.summary-v2-block img, .sqs-block-image img, .gallery-strips-item img');
+      let images = instance.elements.container.querySelectorAll('.summary-v2-block img, .sqs-block-image img, .gallery-strips-item img, .sqs-gallery img');
       images.forEach(img => {
 
         img.classList.add('loaded');
