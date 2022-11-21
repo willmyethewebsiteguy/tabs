@@ -452,7 +452,8 @@ body.sqs-edit-mode-active .sqs-block:hover .wm-tabs-end::after{
 
 /*Image In Source Upload*/
 .wm-tabs-block .sqs-block-image img.loaded,
-.wm-tabs-block .summary-v2-block img.loaded{
+.wm-tabs-block .summary-v2-block img.loaded,
+.wm-tabs-block .sqs-gallery a.content-fill img{
   --position: 50% 50%;
   height: 100% !important;
   width: 100% !important;
@@ -463,4 +464,10 @@ body.sqs-edit-mode-active .sqs-block:hover .wm-tabs-end::after{
   object-position:var(--position);
   object-fit:cover;
   bottom: 0 !important;
+}
+.wm-tabs-block .sqs-gallery a.content-fill{
+  position:relative;
+}
+.wm-tabs-block .sqs-gallery a.content-fill img{
+  position: absolute !important;
 }
