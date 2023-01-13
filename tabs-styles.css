@@ -251,6 +251,16 @@ body:not(.sqs-edit-mode-active) .hide-target {
   box-sizing:border-box;
 }
 
+
+/*Classic Editor Tabs within Fluid Engine Section*/
+.wm-tabs-block section .sqs-layout .sqs-block {
+  position: relative;
+  height: auto;
+  padding-top: 17px;
+  padding-bottom: 17px;
+}
+
+
 /**
 * Hover on Tab Buttons
 **/
