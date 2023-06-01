@@ -114,6 +114,7 @@
     /* Scroll To Top When Below */
     function scrollToTopOfTab(instance) {
       if (!instance.elements.header) return;
+      if (instance.settings.event == 'mouseover') return;
       let isBelow = false,
           tab = instance.elements.container,
           tabTop = tab.getBoundingClientRect().top - instance.elements.headerBottom;
@@ -297,6 +298,7 @@
      **/
     function afterTabOpenEventListener(instance) {
       function handleEvent(e) {
+        if (e.target !== instance.elements.container) return;
         e.stopPropagation();
         getNavWidth(instance);
         setIndicator(instance);
@@ -471,9 +473,8 @@
       //Add CSS Function
       this.addCSS();
       let local = getLocalSettings(el);
-
       this.settings = Object.assign({}, defaults, global, local, options);
-
+      
       // Add Elements Obj
       this.elements = {
         container: el,
@@ -665,6 +666,7 @@
         `;
 
       container.innerHTML = template;
+      container.classList.add('loaded');
       instance.elements.container = container;
 
       return container;
