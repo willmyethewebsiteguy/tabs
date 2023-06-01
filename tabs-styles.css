@@ -313,23 +313,23 @@ body:not(.sqs-edit-mode-active) .hide-target {
   [data-layout="vertical"].wm-tabs-block{
     display: flex;
   }
-  [data-layout="vertical"] .nav-container{
+  [data-layout="vertical"] > .nav-container{
     width: var(--real-nav-width);
     padding-right:17px;
     align-self: stretch;
   }
-  [data-layout="vertical"] article{
+  [data-layout="vertical"] > article{
     min-width: 0;
     width: var(--content-width);
     margin-top:0px;
     flex-grow:1;
   }
-  [data-layout="vertical"] nav{
+  [data-layout="vertical"] > .nav-container nav{
     flex-wrap:wrap;
     align-content: start;
     height:100%;
   }
-  [data-layout="vertical"] nav button {
+  [data-layout="vertical"] > .nav-container nav button {
     flex-shrink:1;
     justify-content:start;
     text-align: start;
@@ -337,13 +337,13 @@ body:not(.sqs-edit-mode-active) .hide-target {
     max-width:initial;
     align-items:start;
   }
-  [data-layout="vertical"] span.indicator-track{
+  [data-layout="vertical"] > .nav-container span.indicator-track{
     width: var(--indicator-size);
     height:var(--height);
     top:0;
     left:0;
   }
-  [data-layout="vertical"] span.indicator {
+  [data-layout="vertical"] > .nav-container span.indicator {
     width: var(--indicator-size);
     height:var(--height);
     top: var(--top);
@@ -403,15 +403,18 @@ body:not(.sqs-edit-mode-active) .hide-target {
 /**
 * Edit Mode Code
 **/
-body.sqs-edit-mode-active .wm-tab-start{
+body.sqs-edit-mode-active .wm-tab-start,
+body.sqs-edit-mode-active [data-wm-plugin="tabs"]{
   border-bottom: 1px dashed #4669be;
   position:relative;
 }
-body.sqs-edit-mode-active .wm-tabs-end{
+body.sqs-edit-mode-active .wm-tabs-end,
+body.sqs-edit-mode-active [data-tabs-end]{
   border-top: 1px dashed #4669be;  
   position:relative;
 }
-body.sqs-edit-mode-active .wm-tab-start::after{
+body.sqs-edit-mode-active .wm-tab-start::after,
+body.sqs-edit-mode-active [data-wm-plugin="tabs"]::after{
   content: 'New Tab Start';
   position: absolute;
   font-size: 10px;
@@ -428,7 +431,8 @@ body.sqs-edit-mode-active .wm-tab-start::after{
   opacity: 0;
   transition: opacity .2s ease;
 }
-body.sqs-edit-mode-active .wm-tabs-end::after{
+body.sqs-edit-mode-active .wm-tabs-end::after,
+body.sqs-edit-mode-active [data-tabs-end]::after{
   content:'Tabs Group End';
   position: absolute;
   font-size: 10px;
@@ -446,7 +450,9 @@ body.sqs-edit-mode-active .wm-tabs-end::after{
   opacity: 0;
 }
 body.sqs-edit-mode-active .sqs-block:hover .wm-tab-start::after, 
-body.sqs-edit-mode-active .sqs-block:hover .wm-tabs-end::after{
+body.sqs-edit-mode-active .sqs-block:hover .wm-tabs-end::after,
+body.sqs-edit-mode-active .sqs-block:hover [data-wm-plugin="tabs"]::after,
+body.sqs-edit-mode-active .sqs-block:hover [data-tabs-end]::after{
   opacity: 1;
 }
 
