@@ -84,12 +84,15 @@ body:not(.sqs-edit-mode-active) .hide-target {
   position:relative;
   width:100%;
 }
-
-.wm-tabs-block article > section {
+.wm-tabs-block article > section{
   position:relative;
   box-sizing:border-box;
-  display:none;
   z-index:2;
+}
+.wm-tabs-block article > section:not(.active) {
+  height:0px;
+  overflow:hidden;
+  visibility:hidden;
 }
 
 .sqs-layout:not(.sqs-editing) .sqs-row .wm-tabs-block .sqs-block:not(.float):not(.sqs-feature-gated-wrapper):first-child {
@@ -134,16 +137,14 @@ body:not(.sqs-edit-mode-active) .hide-target {
   transition: height .2s ease;
 }
 
-/**
-* Active Sections
-**/
-.wm-tabs-block section.active {
-  display:block;
+/*Active Sections*/
+
+.wm-tabs-block article > section.active {
+
 }
 
-/**
- * Button Positioning
-**/
+/*Button Positioning*/
+
 .wm-tabs-block nav{
   display:flex;
   flex-wrap:nowrap;
@@ -261,23 +262,18 @@ body:not(.sqs-edit-mode-active) .hide-target {
 }
 
 
-/**
-* Hover on Tab Buttons
-**/
+/*Hover on Tab Buttons*/
+
 .wm-tabs-block nav button:hover{
   opacity: 1;
 }
 
-/**
-* Active State for Tab Buttons
-**/
+/*Active State for Tab Buttons*/
 .wm-tabs-block nav button.active{
   opacity: 1;
 }
 
-/** 
- * Indicator & Indicator Scroll
-**/
+/*Indicator & Indicator Scroll*/
 .wm-tabs-block span.indicator-track{
   box-sizing:border-box;
   position:absolute;
@@ -350,9 +346,7 @@ body:not(.sqs-edit-mode-active) .hide-target {
   }
 }
 
-/**
-* Mobile Accordion Tabs 
-**/
+/*Mobile Accordion Tabs */
 @media(max-width:767px){
   .wm-tabs-block[data-mobile-type="accordion"] section > button{
     display:flex;
@@ -400,9 +394,8 @@ body:not(.sqs-edit-mode-active) .hide-target {
   }
 }
 
-/**
-* Edit Mode Code
-**/
+/*Edit Mode Code*/
+
 body.sqs-edit-mode-active .wm-tab-start,
 body.sqs-edit-mode-active [data-wm-plugin="tabs"]{
   border-bottom: 1px dashed #4669be;
