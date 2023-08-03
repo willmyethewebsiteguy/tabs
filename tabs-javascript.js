@@ -74,7 +74,7 @@
         /**
     * Scroll To Position
     * This should only happen once
-    **/
+    */
       function handleEvent() {
         let url = new URL(window.location.href),
               hash = url.hash,
@@ -104,7 +104,12 @@
       }
       
       window.addEventListener('load', handleEvent)
-    }
+    },
+    getPropertyValue: function(el, prop) {
+      let styles = window.getComputedStyle(el),
+          value = styles.getPropertyValue(prop);
+      return value;
+    },
   }
 
   let WMTabs = (function(){
@@ -116,13 +121,14 @@
       if (!instance.elements.header) return;
       if (instance.settings.event == 'mouseover') return;
       let isBelow = false,
-          tab = instance.elements.container,
-          tabTop = tab.getBoundingClientRect().top - instance.elements.headerBottom;
+        tab = instance.elements.container,
+        tabTop = tab.getBoundingClientRect().top - instance.elements.headerBottom,
+        scrollBackOffset = utils.getPropertyValue(instance.elements.container, '--scroll-back-offset') || 50;
 
       if (tabTop < 0) {
         isBelow = true;
         window.scrollTo({
-          top: tab.getBoundingClientRect().top + document.documentElement.scrollTop - instance.elements.headerBottom - 50,
+          top: tab.getBoundingClientRect().top + document.documentElement.scrollTop - instance.elements.headerBottom - parseInt(scrollBackOffset),
           behavior: 'smooth'
         });
       }
@@ -196,10 +202,7 @@
       }
     }
 
-    /**
-     * Create Resize Event Listener
-     * @param  {Constructor} instance The current instantiation
-     **/
+
     function createResizeListener(instance) {
       function handleEvent() {
         setIndicator(instance);
@@ -212,10 +215,8 @@
       window.addEventListener("resize", handleEvent);
     }
 
-    /**
-     * Nav Scroll Listener
-     * @param  {Constructor} instance The current instantiation
-     **/
+
+    
     function createTabNavScrollListener(instance) {
       function handleEvent() {
         setScrollIndicatorsVisibility(instance)
@@ -224,10 +225,7 @@
       instance.elements.nav.addEventListener("scroll", handleEvent);
     }
 
-    /**
-      * Create Scroll Indicator Click Events 
-      * @param  {Constructor} instance The current instantiation
-     **/
+
     function createNavScrollIndicatorClickListener(instance) {
       function handleEvent(options) {
         scrollNav(instance, options)
@@ -245,10 +243,7 @@
       });
     }
 
-    /**
-     * Create Header Transition Event Listener
-     * @param  {Constructor} instance The current instantiation
-     **/
+
     function createHeaderTransitionListener(instance) {
       if (!instance.elements.header) return;
       let header = instance.elements.header;
@@ -263,19 +258,13 @@
       header.addEventListener("transitionend", handleEvent);
     }
 
-    /**
-     * Show Indicators
-     * @param  {Constructor} instance The current instantiation
-     **/
+
     function showIndicators(instance) {
       instance.elements.indicator.style.visibility = "";
       instance.elements.indicatorTrack.style.visibility = "";
     }
     
-    /**
-     * Create Page Load Event Listener
-     * @param  {Constructor} instance The current instantiation
-     **/
+
     function createLoadListener(instance) {
       function handleEvent() {
         setIndicator(instance);
@@ -290,12 +279,6 @@
       window.addEventListener("DOMContentLoaded", handleEvent);
     }
 
-    /**
-     * After Toggle Complete Event Listener
-     * @param  {Node}        btn      The button to attach the listener to
-     * @param  {Constructor} instance The current instantiation
-     * @return {Function}             The callback function
-     **/
     function afterTabOpenEventListener(instance) {
       function handleEvent(e) {
         if (e.target !== instance.elements.container) return;
@@ -310,12 +293,6 @@
       instance.elements.container.addEventListener("wmTabs:afterOpen", handleEvent);
     }
 
-    /**
-     * Create an event listener
-     * @param  {Node}        btn      The button to attach the listener to
-     * @param  {Constructor} instance The current instantiation
-     * @return {Function}             The callback function
-     **/
     function setIndicator(instance) {
       //console.log('instance', instance.elements.container)
       let elements = instance.elements,
@@ -564,7 +541,7 @@
     /**
      * Open the Correct Tage
      * @param  {Constructor} instance The current instantiation
-     **/
+     */
     Constructor.prototype.initTab = function () {
       const url = new URL(window.location.href),
             searchParams = url.searchParams.getAll("wmTabs");
@@ -1072,7 +1049,7 @@
         },
         get activeSection() {
           return this.container.querySelector("section.active");
-        },
+        }
       };
 
       // Inject template into the DOM
@@ -1222,7 +1199,18 @@
           })
         } else {
           let nextSection = instance.elements.container.closest('.page-section, .Index-page, .main-content > .index-section').nextElementSibling;
-          if (nextSection) htmlString.append(nextSection);
+          if (nextSection.matches('.user-items-list-section')){
+            /*window.addEventListener('DOMContentLoaded', function() {
+              if (nextSection) {
+                htmlString.append(nextSection);
+                //runSQSSiteBundle()
+              }
+            })*/
+            htmlString.append(nextSection);
+          } else {
+            if (nextSection) htmlString.append(nextSection);
+          }
+          
         }
         instance.elements.article.append(htmlString);
       }
@@ -1302,6 +1290,14 @@
       observer.observe(elemToObserve, { attributes: true });
     }
 
+    function runSQSSiteBundle() {
+      let siteBundle = document.querySelector('body > [src*="https://static1.squarespace.com/static/vta"]');
+      let script = document.createElement('script');
+      script.src = siteBundle.src;
+      script.async = siteBundle.async;
+      document.body.appendChild(script);
+    }
+
     /**
      * The constructor object
      * @param {String} selector The selector for the element to render into
@@ -1364,6 +1360,9 @@
         get activeSection() {
           return this.container.querySelector("section.active");
         },
+        get hasListSection() {
+          return this.container.querySelectorAll('.user-items-list-section').length;
+        }
       };
       
       //Add Section Index ID's if In Backend so we can place back correctly
@@ -1382,6 +1381,10 @@
       watchForEditMode(this);
 
       new WMTabs(this.elements.container);
+      /*if (this.elements.hasListSection) {
+        runSQSSiteBundle();
+      }*/
+      
     }
 
     /**
