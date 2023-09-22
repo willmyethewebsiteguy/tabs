@@ -1394,7 +1394,7 @@
       let id = `tab${index + 1}`;
       if (button.id) id = button.id;
       //Build Each Button and add to string
-      return `<button data-id="${id}" class="wm-tab-button">${button.innerText}</button>`;
+      return `<button data-id="${id}" class="wm-tab-button">${button.innerHTML}</button>`;
     };
 
     /**
