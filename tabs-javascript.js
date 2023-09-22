@@ -400,8 +400,10 @@
           navWidth = instance.elements.nav.offsetWidth,
           viewableNavRightEdge = navScrollLeftPos + navWidth;
 
-      navScrollLeftPos > 25 ? backSI.classList.add('show') : backSI.classList.remove('show');
-      viewableNavRightEdge + 25 < scrollWidth ? forwardSI.classList.add('show') : forwardSI.classList.remove('show');
+      if (backSI && forwardSI) {
+        navScrollLeftPos > 25 ? backSI.classList.add('show') : backSI.classList.remove('show');
+        viewableNavRightEdge + 25 < scrollWidth ? forwardSI.classList.add('show') : forwardSI.classList.remove('show');
+      }
 
       //  console.log('navScrollLeftPos', navScrollLeftPos)
       //  console.log('viewableNavRightEdge', viewableNavRightEdge)
