@@ -1222,11 +1222,14 @@
     
     function addSectionIndex() {
       if (window.top == window.self) return;
-      let sectionsContainer = document.querySelector('#page #sections'),
-          sections = sectionsContainer.querySelectorAll(':scope > .page-section');
+        let sectionsContainer = document.querySelector('#page #sections'),
+          collectionItemSections = document.querySelector('#page #collection-item-sections'),
+          container = collectionItemSections ? collectionItemSections : sectionsContainer,
+          sections = container.querySelectorAll(':scope > .page-section');
+      
       
       for (let section of sections) {
-        let index = Array.prototype.indexOf.call(sectionsContainer.children, section);
+        let index = Array.prototype.indexOf.call(container.children, section);
         section.dataset.wmTabIndexId = index;
       }
 
@@ -1426,12 +1429,13 @@
       function removeElements() {
         if (!instance.elements) { return }
         let sectionsContainer = document.querySelector('#page #sections'),
-            sections = document.querySelectorAll('[data-wm-tab-index-id]');
+          collectionItemSections = document.querySelector('#page #collection-item-sections'),
+          sections = document.querySelectorAll('[data-wm-tab-index-id]'),
+          container = collectionItemSections ? collectionItemSections : sectionsContainer;
         
         for (let section of sections) {
-          sectionsContainer.append(section);
+          container.append(section);
         }
-        //instance.elements.article.remove();
       }
 
       removeElements();
