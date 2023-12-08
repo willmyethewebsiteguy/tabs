@@ -1434,7 +1434,14 @@
           container = collectionItemSections ? collectionItemSections : sectionsContainer;
         
         for (let section of sections) {
-          container.append(section);
+          let index = parseInt(section.getAttribute('data-wm-tab-index-id'));
+          if (!index) continue;
+          let currentChildAtIndex = container.children[index];
+          if (currentChildAtIndex) {
+            container.insertBefore(section, currentChildAtIndex);
+          } else {
+            container.appendChild(section);
+          }
         }
       }
 
