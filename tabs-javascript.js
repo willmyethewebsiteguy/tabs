@@ -1221,7 +1221,7 @@
     }
     
     function addSectionIndex() {
-      if (window.top == window.self) return;
+      /*if (window.top == window.self) return;
         let sectionsContainer = document.querySelector('#page #sections'),
           collectionItemSections = document.querySelector('#page #collection-item-sections'),
           container = collectionItemSections ? collectionItemSections : sectionsContainer,
@@ -1231,7 +1231,7 @@
       for (let section of sections) {
         let index = Array.prototype.indexOf.call(container.children, section);
         section.dataset.wmTabIndexId = index;
-      }
+      }*/
 
     }
 
@@ -1319,6 +1319,11 @@
         buildButtons: el.querySelectorAll(':scope > button'),
         el:el,
         container: null,
+        get editingFlag1() {
+          let styles = window.getComputedStyle(document.body),
+          prevent = (styles.getPropertyValue('--wm-tabs-flag-edit-mode-remove') === 'true');
+          return prevent;
+        },
         get tabsCount() {
           let tabsCount = document.querySelectorAll('.wm-tabs-block').length;
           return tabsCount;
@@ -1426,15 +1431,20 @@
     */
     Constructor.prototype.destroy = function (instance) {
       //Deconstruct the Tabs Element
+      if (instance.elements.editingFlag1 == true) {
+        instance.elements.container.remove();
+        return
+      }
+     
       function removeElements() {
         if (!instance.elements) { return }
         let sectionsContainer = document.querySelector('#page #sections'),
           collectionItemSections = document.querySelector('#page #collection-item-sections'),
-          sections = document.querySelectorAll('[data-wm-tab-index-id]'),
+          sections = instance.elements.container.querySelectorAll('[data-wm-initial-section-index-id]'),
           container = collectionItemSections ? collectionItemSections : sectionsContainer;
         
         for (let section of sections) {
-          let index = parseInt(section.getAttribute('data-wm-tab-index-id'));
+          let index = parseInt(section.getAttribute('data-wm-initial-section-index-id'));
           if (!index) continue;
           let currentChildAtIndex = container.children[index];
           if (currentChildAtIndex) {
@@ -1542,6 +1552,7 @@
       })
 
     }
+    
     let initCollections = document.querySelectorAll(`[data-wm-plugin="tabs"][data-source]:not(.loaded, .loading)`);
     for (const el of initCollections) {
       el.classList.add('loading');
@@ -1588,7 +1599,22 @@
       utils.scrollToPosition();
     }
   }
-
+  function numberSections() {
+    if (window.top == window.self) return;
+      let sectionsContainer = document.querySelector('#page #sections'),
+        collectionItemSections = document.querySelector('#page #collection-item-sections'),
+        container = collectionItemSections ? collectionItemSections : sectionsContainer,
+        sections = container.querySelectorAll(':scope > .page-section');
+    
+    
+    for (let section of sections) {
+      if (section.dataset.wmInitialSectionIndexId) return;
+      let index = Array.prototype.indexOf.call(container.children, section);
+      section.dataset.wmInitialSectionIndexId = index;
+    }
+  }
+  
+  numberSections();
   initTabs();
   if (Static.SQUARESPACE_CONTEXT.templateVersion == "7"){
     window.addEventListener('mercury:load', initTabs)
