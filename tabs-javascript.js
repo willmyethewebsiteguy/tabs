@@ -1442,18 +1442,19 @@
           collectionItemSections = document.querySelector('#page #collection-item-sections'),
           sections = instance.elements.container.querySelectorAll('[data-wm-initial-section-index-id]'),
           container = collectionItemSections ? collectionItemSections : sectionsContainer;
-        
-        for (let section of sections) {
-          let index = parseInt(section.getAttribute('data-wm-initial-section-index-id'));
-          if (!index) continue;
-          let currentChildAtIndex = container.children[index];
-          if (currentChildAtIndex) {
-            container.insertBefore(section, currentChildAtIndex);
-          } else {
-            container.appendChild(section);
-          }
+          window.setTimeout(() => {
+            for (let section of sections) {
+              let index = parseInt(section.getAttribute('data-wm-initial-section-index-id'));
+              if (!index) continue;
+              let currentChildAtIndex = container.children[index];
+              if (currentChildAtIndex) {
+                container.insertBefore(section, currentChildAtIndex);
+              } else {
+                container.appendChild(section);
+              }
+            }
+          }, 0)
         }
-      }
 
       removeElements();
     };
