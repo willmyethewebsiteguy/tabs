@@ -1487,11 +1487,14 @@
     return Constructor;
   }());
   
-  function initTabs() {
+ function initTabs() {
     if (utils.preventPlugin()) return;
+    const preventCache = !!document.querySelector('[data-wm-prevent-cache]');
+    
     //Build HTML from Collection
     async function getCollectionJSON(url) {
-      url += `?format=json-pretty`;
+      let time = Date.now();
+      url += `?format=json-pretty${preventCache ? `&time=${time}` : ``}`;
       try {
         return fetch(url)
           .then(function (response) {
@@ -1526,7 +1529,7 @@
     async function buildTabsFromCollection(el, url) {
       let collectionObj = await getCollectionJSON(url),
           results = []
-
+      
       collectionObj.forEach(item => {
         let obj = {
           url: item.fullUrl,
