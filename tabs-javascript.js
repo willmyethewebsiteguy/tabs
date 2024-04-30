@@ -13,6 +13,7 @@
     layout: "horiztonal", // or 'vertical'
     event: "click", // or 'hover'
     inAnimation: "slideIn",
+    allowScrollBack: true,
     mobileType: "tabs", // or 'accordions'
     on: {
       beforeOpenTab: null,
@@ -120,6 +121,7 @@
     function scrollToTopOfTab(instance) {
       if (!instance.elements.header) return;
       if (instance.settings.event == 'mouseover') return;
+      if (!instance.settings.allowScrollBack) return;
       let isBelow = false,
         tab = instance.elements.container,
         tabTop = tab.getBoundingClientRect().top - instance.elements.headerBottom,
